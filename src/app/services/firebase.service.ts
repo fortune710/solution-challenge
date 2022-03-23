@@ -1,9 +1,108 @@
 import { Injectable } from '@angular/core';
+import { Auth, 
+         getAuth, 
+         updateProfile,
+         updatePassword,
+         updateEmail,
+         User,
+         signInWithEmailAndPassword, 
+         createUserWithEmailAndPassword, 
+         signInWithPopup,
+         GoogleAuthProvider } from '@angular/fire/auth';
+import { Firestore,
+         getDoc,
+         setDoc,
+         updateDoc,
+         doc,
+         collection, 
+         getDocs} from '@angular/fire/firestore';
+import { Storage } from '@angular/fire/storage';
+import { FunctionalitiesService } from './functionalities.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
+  auth:Auth = getAuth();
+  provider = new GoogleAuthProvider();
 
-  constructor() { }
-}
+  signUpWithEmail(password:string, email:string, gender:string, name:string){
+    const user = createUserWithEmailAndPassword(this.auth, email, password)
+    .then((details)=>{
+      console.log(details.user.uid)
+      updateProfile(details.user, {
+        displayName: name,
+        photoURL: `https://avatars.dicebear.com/api/${gender}/big-ears/${name}.svg`
+      })
+      return details.user
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+    return user
+  }
+
+  signInWithEmail(email:string, password:string){
+    const user = signInWithEmailAndPassword(this.auth, email, password)
+    .then((details)=>{
+      return details.user
+    })
+    return user
+  }
+
+  signInWithGoogle(){
+    signInWithPopup(this.auth, this.provider)
+    .then((details)=>{
+      console.log(details.user)
+    })
+  }
+
+  setProfilePicture(currentUser:User){
+    updateProfile(currentUser, {
+      photoURL: "",
+    })
+    .then(() => {
+      this.uiService.createToast("Profile Picture Changed!🎉")
+    })
+    .catch(() => {
+      this.uiService.createToast("Could not change profile picture.😢")
+    })
+  }
+
+  setDisplayName(currentUser:User, newName:string){
+    updateProfile(currentUser, {
+      displayName: newName
+    })
+    .then(() => {
+      this.uiService.createToast("Display Name Changed!🎉")
+    })
+    .catch(() => {
+      this.uiService.createToast("Could not change display name.😢")
+    })
+  }
+
+  getAllUsersDocuments(collectionName:string){
+    const ref = collection(this.firestore, collectionName);
+    return getDocs(ref)
+  }
+
+  getUserDocument(collectionName:string, userId:string){
+    const ref = doc(this.firestore, `${collectionName}/${userId}`);
+    return getDoc(ref)
+  }
+
+  createUserDocument(collectionName:string, userId:string, data:any){
+    const ref = doc(this.firestore, `${collectionName}/${userId}`);
+    return setDoc(ref, data);
+  }
+
+
+
+
+
+
+  constructor(private firestore:Firestore,
+              private storage:Storage,
+              private uiService:FunctionalitiesService) {} 
+}  
