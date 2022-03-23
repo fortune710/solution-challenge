@@ -170,6 +170,16 @@
               "browserTarget": "solution-challenge:build:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "solution-challenge:build:production",
+            "firebaseProject": "solution-challenge-b441b",
+            "firebaseHostingSite": "solution-challenge-b441b"
+          }
         }
       }
     }

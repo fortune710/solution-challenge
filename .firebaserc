@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "solution-challenge-b441b": {
+      "hosting": {
+        "solution-challenge": [
+          "solution-challenge-b441b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "solution-challenge-b441b"
+  }
+}
