@@ -12,17 +12,17 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## To generate components for the application
 
-Run `ng generate component components\[name-of-component]`. This stores the created component in the 
+Run `ng generate component components/[name-of-component]`. This stores the created component in the 
 components folder. 
 
 ## To generate pages for the application
 
-Run `ng generate component components\[name-of-page]`. This stores the created page in the 
+Run `ng generate component components/[name-of-page]`. This stores the created page in the 
 pages folder. 
 
 ## To generate services for the application
 
-Run `ng generate service services\[name-of-service] --skip-tests`. This stores the created page in the 
+Run `ng generate service services/[name-of-service] --skip-tests`. This stores the created page in the 
 pages folder. 
 
 ## Build
