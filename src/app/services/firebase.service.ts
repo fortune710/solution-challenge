@@ -59,9 +59,9 @@ export class FirebaseService {
     })
   }
 
-  setProfilePicture(currentUser:User){
+  setProfilePicture(currentUser:User, newUrl:string){
     updateProfile(currentUser, {
-      photoURL: "",
+      photoURL: newUrl,
     })
     .then(() => {
       this.uiService.createToast("Profile Picture Changed!🎉")
@@ -93,7 +93,7 @@ export class FirebaseService {
     return getDoc(ref)
   }
 
-  createUserDocument(collectionName:string, userId:string, data:any){
+  createUserDocument(collectionName:string, userId:string|any, data:any){
     const ref = doc(this.firestore, `${collectionName}/${userId}`);
     return setDoc(ref, data);
   }
