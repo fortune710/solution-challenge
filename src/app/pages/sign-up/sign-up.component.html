@@ -1,1 +1,33 @@
-<p>sign-up works!</p>
+<ion-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+        <ion-item lines="none">
+            <ion-label position="floating">Display Name</ion-label>
+            <ion-input formControlName="displayName" placeholder="What do you want us to call you?" required></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email" placeholder="Enter your email" required></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password" type="password" placeholder="Enter a password" required></ion-input>
+        </ion-item>
+
+        <ion-input class="btn-submit" type="submit" value="Sign Up"></ion-input>
+    </form>
+
+    <div id="or-section">
+        <hr>
+        <p>or</p>
+        <hr>
+    </div>
+
+    <section>
+        <ion-button>
+            <ion-icon slot="start" name="logo-google"></ion-icon>
+            <p>Sign In with Google</p>
+        </ion-button>
+    </section>
+</ion-content>
