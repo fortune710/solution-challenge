@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Network } from '@capacitor/network';
 import { ModalController, ToastController } from '@ionic/angular';
 
@@ -27,6 +28,17 @@ export class FunctionalitiesService {
       componentProps: props
     })
   }
+
+  async getPhoto(){
+    const image = await Camera.getPhoto({
+      quality: 100,
+      source: CameraSource.Prompt,
+      resultType: CameraResultType.Base64
+    })
+    image.base64String += "data:image/jpeg;base64,"+image.base64String
+    return image
+  }
+
 
 
   constructor(private toastCtrl:ToastController,
