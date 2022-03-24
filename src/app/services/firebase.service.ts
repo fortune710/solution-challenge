@@ -16,7 +16,8 @@ import { Firestore,
          doc,
          collection, 
          getDocs} from '@angular/fire/firestore';
-import { Storage } from '@angular/fire/storage';
+import { getDownloadURL, ref, Storage, uploadString } from '@angular/fire/storage';
+import { Photo } from '@capacitor/camera';
 import { FunctionalitiesService } from './functionalities.service';
 
 @Injectable({
@@ -97,7 +98,22 @@ export class FirebaseService {
     return setDoc(ref, data);
   }
 
+  async writeToFirebaseStorage(fileName: string, image:Photo|any){
+    const storageRef = ref(this.storage, `profile-pics/${fileName}.png`);
+    uploadString(storageRef,image.base64String,'base64')
+    .catch(()=>{
+      this.uiService.createToast("Could not upload file at this time.")
+    })
+  }
 
+
+  async getURLFromStorage(fileName:string){
+    const storageRef = ref(this.storage, `profile-pics/${fileName}.png`);
+    const url = getDownloadURL(storageRef).then((downloadURL) =>{
+      return downloadURL;
+    })
+    return url;
+  }
 
 
 
