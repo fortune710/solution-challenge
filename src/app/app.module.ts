@@ -17,11 +17,15 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
     provideMessaging(() => getMessaging()),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
