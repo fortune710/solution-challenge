@@ -15,6 +15,15 @@
             <ion-input formControlName="password" type="password" placeholder="Enter a password" required></ion-input>
         </ion-item>
 
+        <ion-item lines="none">
+            <ion-label position="floating">Gender</ion-label>
+            <ion-select (ionChange)="getGender($event)">
+                <ion-select-option value="male">Male</ion-select-option>
+                <ion-select-option value="female">Female</ion-select-option>
+                <ion-select-option value="non-binary">Non-binary</ion-select-option>
+            </ion-select>
+        </ion-item>
+
         <ion-input class="btn-submit" type="submit" value="Sign Up"></ion-input>
     </form>
 

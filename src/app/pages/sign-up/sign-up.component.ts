@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { UserDetails } from 'src/app/interfaces/schema';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,30 +14,36 @@ export class SignUpComponent implements OnInit {
   password: string = '';
   displayName: string = '';
   gender: string = '';
-  data:any = {};
+
+  data:UserDetails = {
+    displayName: this.displayName,
+    carbonBudgetForMonth: 0,
+    carbonHistory: [{
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear() + 1,
+      carbonAmount: 0
+    }],
+    totalCarbonThisMonth: {
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear() + 1,
+      carbonAmount: 0
+    }
+  };
 
   signUpForm: FormGroup | any
   
-  getName(event:any){
-    this.displayName = event.target.value;
-  }
-  
-  getEmail(event:any){
-    this.email = event.target.value;
-  }
-  
-  getPassword(event:any){
-    this.password = event.target.value;
+  getGender(event: any){
+    this.gender = event.target.value;
   }
   
   signUp(){
     console.log(this.signUpForm.value)
-    /*
-    this.firebaseService.signUpWithEmail(this.password, this.email, this.gender, this.displayName)
+    
+    this.firebaseService.signUpWithEmail(this.signUpForm.value.password, this.signUpForm.value.email, this.gender, this.signUpForm.value.displayName)
     .then((details)=>{
-      const user:User|any = details
-      this.firebaseService.createUserDocument('users',user.uid, this.data)
-    })*/
+      this.data.displayName = this.signUpForm.value.displayName
+      this.firebaseService.createUserDocument('users',details?.uid, this.data)
+    })
   }
   
   constructor(private firebaseService: FirebaseService,
