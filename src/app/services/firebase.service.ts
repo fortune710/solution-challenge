@@ -27,6 +27,8 @@ export class FirebaseService {
   auth:Auth = getAuth();
   provider = new GoogleAuthProvider();
 
+  user:User|any
+
   signUpWithEmail(password:string, email:string, gender:string, name:string){
     const user = createUserWithEmailAndPassword(this.auth, email, password)
     .then((details)=>{
