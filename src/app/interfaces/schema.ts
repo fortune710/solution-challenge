@@ -1,9 +1,9 @@
 export interface UserDetails{
     displayName: string;
     totalCarbonThisMonth: CarbonAmountForUser;
-    carbonHistory: CarbonAmountForUser[];
     carbonBudgetForMonth: number;
     friends?: Friend[];
+    carbonHistory?: CarbonAmountForUser[];
 }
 
 export interface CarbonAmountForUser{
