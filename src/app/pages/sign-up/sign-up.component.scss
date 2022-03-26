@@ -48,16 +48,9 @@ section{
 }
 
 ion-button{
-    border-radius: 6px;
-    --color: #216737;
     --background: transparent;
-    --box-shadow: 0;
-    --border-width: 1px;
     --border-color: #216737;
+    --color: #216737;
+    --border-width: 1px;
     --border-style: solid;
-    width: 90%;
-    margin: 0 auto;
-    height: 45px;
-    text-transform: capitalize;
-    
 }
