@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+.flex-middle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-middle-vertical{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+ion-button{
+    border-radius: 6px;
+    --box-shadow: 0;
+    width: 90%;
+    margin: 0 auto;
+    height: 45px;
+    text-transform: capitalize;
+}
+
+ion-item{
+    --background: #ffffff00;
+    --color: #151515
+}
+
+ion-list{
+    background-color: transparent;
+}
+
+.add-popover{
+    --width: 90vw;
+    h1 { font-size: 20px; }
+}
+
+h1 { font-size: 20px; }
+h2 { font-size: 18px; }
+
