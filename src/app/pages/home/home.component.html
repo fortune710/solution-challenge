@@ -1,16 +1,34 @@
 <ion-content>
-    <section>
+    <section class="greeting">
         <div>
-            Hello, {{ data }}
-            {{ message }}
+            <h1>Hello, {{ data.displayName }}</h1>
+            <p>{{ message }}</p>
         </div>
         <ion-avatar>
-            <ion-img [src]="user.photoURL"></ion-img>
+            <ion-img src="https://avatars.dicebear.com/api/big-ears/FortuneAlebiosu.svg"></ion-img>
         </ion-avatar>
     </section>
 
-    <section>
+    <section class="flex-middle-vertical">
+        <progress-bar [data]="data.totalCarbonThisMonth"></progress-bar>
+        
+        <div class="flex-middle info-bar">
+            <span class="flex-middle-vertical">
+                <h1>{{ percentage | number: '2.1-1' }}%</h1>
+                <p>From last month</p>
+            </span>
+            <span class="flex-middle-vertical">
+                <h1>{{ budgetRemaining }}kg</h1>
+                <p>Remaining budget</p>
+            </span>
+        </div>
+        
 
+        <ion-button (click)="openPopover()">
+            <ion-icon slot="start" name="add-circle"></ion-icon>
+            <p>Add Carbon Footprint</p>
+        </ion-button>
     </section>
 
+    <bottom-panel></bottom-panel>
 </ion-content>

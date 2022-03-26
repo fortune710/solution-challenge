@@ -1,0 +1,62 @@
+.greeting{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1{
+        font-size: 17px;
+    }
+
+    p{
+        font-size: 15px;
+    }
+}
+
+ion-content{
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-top: 22px;
+    --background: #11493e;
+    --color: #fff;
+    --overflow: hidden;
+}
+
+ion-avatar{
+    transform: scale(0.8,0.8);
+    background-color: #518f32;
+    border: 3px solid #fff;
+}
+
+progress-bar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 0.7rem;
+}
+
+
+h1{
+    margin: 1px;
+    font-size: 17px;
+}
+
+p{
+    margin: 2px;
+    font-size: 12px;
+}
+
+span{
+    text-align: center;
+}
+
+.info-bar{
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+ion-button{
+    --background: #518f32;
+    margin: 1.0625rem 0;
+
+    p { font-size: 16px;}
+}
