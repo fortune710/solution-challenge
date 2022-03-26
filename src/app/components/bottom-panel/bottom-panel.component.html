@@ -1,0 +1,61 @@
+<div class="bottom-panel" verticalPan>
+    <span></span>
+    <div id="history">
+        <h1>Consumption</h1>
+        <span class="value-holder">
+            <ion-progress-bar 
+                *ngFor="let item of data.carbonHistory"
+                [value]="item.carbonAmount/625"></ion-progress-bar>
+        </span>
+    </div>
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <ion-list lines="none">
+            <ion-item>
+                <h3 slot="start">1.</h3>
+                <ion-avatar slot="start">
+                    <ion-img src="https://avatars.dicebear.com/api/big-ears/FortuneAlebiosu.svg"></ion-img>
+                </ion-avatar>
+                <p>Anita</p>
+                <ion-label slot="end">
+                    450 kg CO<sub>2</sub>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <h3 slot="start">2.</h3>
+                <ion-avatar slot="start">
+                    <ion-img src="https://avatars.dicebear.com/api/big-ears/FortuneAlebiosu.svg"></ion-img>
+                </ion-avatar>
+                <p>Anita</p>
+                <ion-label slot="end">
+                    450 kg CO<sub>2</sub>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <h3 slot="start">2.</h3>
+                <ion-avatar slot="start">
+                    <ion-img src="https://avatars.dicebear.com/api/big-ears/FortuneAlebiosu.svg"></ion-img>
+                </ion-avatar>
+                <p>Anita</p>
+                <ion-label slot="end">
+                    450 kg CO<sub>2</sub>
+                </ion-label>
+            </ion-item>
+
+            <ion-item>
+                <h3 slot="start">2.</h3>
+                <ion-avatar slot="start">
+                    <ion-img src="https://avatars.dicebear.com/api/big-ears/FortuneAlebiosu.svg"></ion-img>
+                </ion-avatar>
+                <p>Anita</p>
+                <ion-label slot="end">
+                    450 kg CO<sub>2</sub>
+                </ion-label>
+            </ion-item>
+
+
+        </ion-list>
+    </div>
+</div>

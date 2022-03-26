@@ -1,0 +1,42 @@
+.bottom-panel{
+    width: 100vw;
+    border-radius: 25px 25px 0 0;
+    height: 50px;
+    background-color: #c4daba;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 0.5rem 10px 0 10px;
+    transition: 0.5s ease-out;
+}
+
+.bottom-panel > span{
+    border-radius: 10px;
+    width: 30px;
+    height: 5px;
+    background-color: #216737;
+    margin: 0 auto;
+}
+
+ion-progress-bar{
+    margin: 1rem 1rem;
+    width: 100%;
+}
+
+
+.value-holder{
+    width: 100%;
+    height: max-content;
+}
+
+.leaderboard{
+    overflow-y: scroll;
+    background-color: transparent;
+    width: 100%;
+}
+
