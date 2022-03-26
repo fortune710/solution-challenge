@@ -19,13 +19,21 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
+import { BottomPanelComponent } from './components/bottom-panel/bottom-panel.component';
+import { VerticalPanDirective } from './directives/vertical-pan.directive';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { PopoverComponent } from './components/popover/popover.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    BottomPanelComponent,
+    VerticalPanDirective,
+    ProgressBarComponent,
+    PopoverComponent
   ],
   imports: [
     BrowserModule,
