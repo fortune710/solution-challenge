@@ -1,8 +1,9 @@
+
 .bottom-panel{
     width: 100vw;
     border-radius: 25px 25px 0 0;
     height: 50px;
-    background-color: #c4daba;
+    background-color: var(--grey);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -20,12 +21,16 @@
     width: 30px;
     height: 5px;
     background-color: #216737;
-    margin: 0 auto;
+    margin: 0 auto 1.5rem;
 }
 
 ion-progress-bar{
-    margin: 1rem 1rem;
-    width: 100%;
+    margin: 0.4rem 0;
+    width: 80%;
+    height: 15px;
+    border-radius: 15px;
+    --progress-background: var(--primary);
+    --background: var(--primary-shade);
 }
 
 
@@ -40,3 +45,31 @@ ion-progress-bar{
     width: 100%;
 }
 
+#history{
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+h1{
+    margin: 2px 0;
+    font-size: 22px;
+}
+
+ol{
+    margin: 0;
+    padding: 0;
+
+    li{
+        display: flex;
+        align-items: center;
+
+        ion-avatar{
+            transform: scale(0.7,0.7);
+            background-color: var(--dark-tint);
+        }
+        
+        ion-label{
+            margin-left: auto;
+        }
+    }
+}

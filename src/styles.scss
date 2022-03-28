@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./theme/variables.css";
+
+@mixin flex-align-horizontal{
+    display: flex;
+    align-items: center;
+}
+
 .flex-middle{
     display: flex;
     align-items: center;
@@ -37,4 +44,11 @@ ion-list{
 
 h1 { font-size: 20px; }
 h2 { font-size: 18px; }
+
+ion-content{
+    --background: var(--dark);
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --color: #fff;
+}
 
