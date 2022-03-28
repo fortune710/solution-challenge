@@ -23,6 +23,7 @@ import { BottomPanelComponent } from './components/bottom-panel/bottom-panel.com
 import { VerticalPanDirective } from './directives/vertical-pan.directive';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { PopoverComponent } from './components/popover/popover.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,14 @@ import { PopoverComponent } from './components/popover/popover.component';
     provideStorage(() => getStorage()),
     FormsModule,
     ReactiveFormsModule,
+    NgCircleProgressModule.forRoot({
+      radius: 100,
+      outerStrokeWidth: 12,
+      innerStrokeWidth: 2,
+      outerStrokeColor: "#66fcf1",
+      innerStrokeColor: "#c5c6c7",
+      animationDuration: 300,
+    })
   ],
   providers: [
     ScreenTrackingService,UserTrackingService
