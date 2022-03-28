@@ -29,7 +29,7 @@ export class ClimatiqService {
     await Http.post(options)
   }
 
-  async getCarbonEstimateFromFuel(volume:number, unit:string){
+  async getCarbonEstimateFromFuel(volume:number, unit:'l'|'ml'|'m3'|'standard_cubic_foot'|'gallons_us'){
     const options:HttpOptions = {
       url: this.url+'/estimate',
       headers: this.httpHeader,
