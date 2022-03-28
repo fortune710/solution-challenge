@@ -7,42 +7,93 @@
     <ion-list lines="none">
         <ion-item>
             <ion-label position="floating">What did you do?</ion-label>
-            <ion-select>
-                <ion-select-option>
+            <ion-select (ionChange)="getEmissionType($event)">
+                <ion-select-option value="electricity">
                     Consumed Electricity
                 </ion-select-option>
 
-                <ion-select-option>
+                <ion-select-option value="fuel">
                     Burned Fuel
                 </ion-select-option>
 
-                <ion-select-option>
+                <ion-select-option value="transport">
                     Vehicle Transport
                 </ion-select-option>
-
             </ion-select>
         </ion-item>
 
-        <ion-item>
-            <ion-label position="floating">What vehicle did you use?</ion-label>
-            <ion-select>
-                <ion-select-option>
-                    Car
-                </ion-select-option>
+        <div *ngIf="emissionType == 'transport'">
+            <ion-item>
+                <ion-label position="floating">What vehicle did you use?</ion-label>
+                <ion-select>
+                    <ion-select-option>
+                        Car
+                    </ion-select-option>
+    
+                    <ion-select-option>
+                        Airplane
+                    </ion-select-option>
+    
+                    <ion-select-option>
+                        Motorbike
+                    </ion-select-option>
+    
+                    <ion-select-option>
+                        Train
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
 
-                <ion-select-option>
-                    Airplane
-                </ion-select-option>
+            <ion-item>
+                <ion-label position="floating">How many kilometers did you travel?</ion-label>
+                <ion-input type="number"></ion-input>
+            </ion-item>
 
-                <ion-select-option>
-                    Motorbike
-                </ion-select-option>
+            <ion-item>
+                <ion-label position="floating">How many passengers travelled?</ion-label>
+                <ion-input type="number"></ion-input>
+            </ion-item>
+        </div>
 
-                <ion-select-option>
-                    Train
-                </ion-select-option>
-            </ion-select>
-        </ion-item>
+
+        <div *ngIf="emissionType == 'electricity' ">
+            <ion-item>
+                <ion-label position="floating">Amount of Electricity Used</ion-label>
+                <ion-input type="number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="floating">Unit of Power Consumption</ion-label>
+                <ion-select>
+                    <ion-select-option value="kWh">kWh</ion-select-option>
+                    <ion-select-option value="TJ">TJ</ion-select-option>
+                    <ion-select-option value="GJ">GJ</ion-select-option>
+                    <ion-select-option value="MMBTU">MMBTU</ion-select-option>
+                </ion-select> 
+            </ion-item>
+        </div>
+
+
+        <div *ngIf="emissionType == 'fuel' ">
+            <ion-item>
+                <ion-label position="floating">Amount of Fuel Burnt</ion-label>
+                <ion-input type="number"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="floating">Unit of Volume</ion-label>
+                <ion-select>
+                    <ion-select-option value="ml">ml</ion-select-option>
+                    <ion-select-option value="l">l</ion-select-option>
+                    <ion-select-option value="m3"> m <sub>3</sub> </ion-select-option>
+                    <ion-select-option value="standard_cubic_foot">Standard Cubic Foot</ion-select-option>
+                    <ion-select-option value="gallons_us">Gallons(US)</ion-select-option>
+                </ion-select> 
+            </ion-item>
+        </div>
+
+
+
     </ion-list>
     
 </ion-content>
