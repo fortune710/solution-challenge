@@ -4,3 +4,10 @@
 
 /* To quickly generate your own theme, check out the color generator */
 /* https://ionicframework.com/docs/theming/color-generator */
+:root{
+    --dark: #0b0c10;
+    --dark-tint: #1f2833;
+    --grey: #c5c6c7;
+    --primary: #66fcf1;
+    --primary-shade: #45a29e;
+}
