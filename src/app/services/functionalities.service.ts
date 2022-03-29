@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Network } from '@capacitor/network';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Geolocation, PositionOptions } from '@capacitor/geolocation';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,22 @@ export class FunctionalitiesService {
     })
     image.base64String += "data:image/jpeg;base64,"+image.base64String
     return image
+  }
+
+  async getCoordinates(){
+    const coordinates = await Geolocation.getCurrentPosition()
+    console.log(coordinates)
+    return coordinates
+  }
+
+  async watchCoordinates(){
+    const options:PositionOptions = {
+      enableHighAccuracy: true,
+      timeout: 20000
+    }
+    await Geolocation.watchPosition(options, (position)=>[
+      
+    ])
   }
 
 

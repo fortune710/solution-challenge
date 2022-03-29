@@ -4,6 +4,7 @@ import { User } from "@angular/fire/auth";
 import { Platform, PopoverController } from '@ionic/angular'
 import { UserDetails } from '../../interfaces/schema'
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { FunctionalitiesService } from 'src/app/services/functionalities.service';
 
 @Component({
   selector: 'app-home',
@@ -73,11 +74,13 @@ export class HomeComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
               private platform: Platform, 
-              private popoverController:PopoverController) { 
+              private popoverController:PopoverController,
+              private appService:FunctionalitiesService) { 
       //console.log(this.data)
               }
 
   ngOnInit(): void {
+    this.appService.getCoordinates()
     /*
     this.user = this.firebaseService.user
     this.firebaseService.getUserDocument('users', this.user?.uid)
