@@ -51,9 +51,7 @@ export class FunctionalitiesService {
       enableHighAccuracy: true,
       timeout: 20000
     }
-    await Geolocation.watchPosition(options, (position)=>[
-      
-    ])
+    await Geolocation.watchPosition(options, (position)=>{})
   }
 
 
