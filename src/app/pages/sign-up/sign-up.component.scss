@@ -1,15 +1,23 @@
+@mixin flex-align-horizontal{
+    display: flex;
+    align-items: center;
+}
+
 ion-content{
     --padding-start: 10px;
     --padding-end: 10px;
     --padding-top: 22px;
-    display: flex;
+    @include flex-align-horizontal();
     flex-direction: column;
-    align-items: center;
+}
+
+h1{
+    font-size: 22px;
 }
 
 ion-input.btn-submit{
     border-radius: 6px;
-    --background: #216737;
+    --background: var(--primary-shade);
     --color: #fff;
     width: 90%;
     margin: 0 auto;
@@ -20,7 +28,8 @@ ion-input.btn-submit{
 ion-item{
     border-radius: 6px;
     margin-bottom: 10px;
-    border: 0.5px solid #216737;
+    --color: #fff;
+    border: 0.5px solid var(--primary-shade);
 }
 
 ion-input{
@@ -28,13 +37,12 @@ ion-input{
 }
 
 #or-section{
-    display: flex;
-    align-items: center;
+    @include flex-align-horizontal();
 }
 
 hr{
-    color: #216737;
-    background: #216737;
+    color: var(--primary-shade);
+    background: var(--primary-shade);
     height: 1px;
     border-width: 0;
     width: 130px;
@@ -42,15 +50,14 @@ hr{
 
 section{
     width: 100%;
-    display: flex;
-    align-items: center;
+    @include flex-align-horizontal();
     justify-content: center;
 }
 
 ion-button{
     --background: transparent;
-    --border-color: #216737;
-    --color: #216737;
+    --border-color: var(--primary-shade);
+    --color: var(--primary-shade);
     --border-width: 1px;
     --border-style: solid;
 }
