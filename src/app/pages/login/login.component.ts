@@ -15,21 +15,6 @@ export class LoginComponent implements OnInit {
   displayName: string = '';
   gender: string = '';
 
-  data:UserDetails = {
-    displayName: this.displayName,
-    carbonBudgetForMonth: 0,
-    carbonHistory: [{
-      month: new Date().getMonth() + 1,
-      year: new Date().getFullYear() + 1,
-      carbonAmount: 0
-    }],
-    totalCarbonThisMonth: {
-      month: new Date().getMonth() + 1,
-      year: new Date().getFullYear() + 1,
-      carbonAmount: 0
-    }
-  };
-
   logInForm: FormGroup | any
   
   getGender(event: any){
@@ -41,8 +26,7 @@ export class LoginComponent implements OnInit {
     
     this.firebaseService.signInWithEmail(this.logInForm.value.password, this.logInForm.value.email)
     .then((details)=>{
-      this.data.displayName = this.logInForm.value.displayName
-      this.firebaseService.createUserDocument('users',details?.uid, this.data)
+      this.firebaseService.getUserDocument('users',details?.uid)
     })
   }
 
