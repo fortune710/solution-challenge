@@ -53,11 +53,3 @@ section{
     @include flex-align-horizontal();
     justify-content: center;
 }
-
-ion-button{
-    --background: transparent;
-    --border-color: var(--primary-shade);
-    --color: var(--primary-shade);
-    --border-width: 1px;
-    --border-style: solid;
-}
