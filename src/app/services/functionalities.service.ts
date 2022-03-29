@@ -41,19 +41,14 @@ export class FunctionalitiesService {
   }
 
   async getCoordinates(){
-    const coordinates = await Geolocation.getCurrentPosition()
-    console.log(coordinates)
-    return coordinates
-  }
-
-  async watchCoordinates(){
     const options:PositionOptions = {
       enableHighAccuracy: true,
       timeout: 20000
     }
-    await Geolocation.watchPosition(options, (position)=>{})
+    const coordinates = await Geolocation.getCurrentPosition(options)
+    console.log(coordinates)
+    return coordinates
   }
-
 
 
   constructor(private toastCtrl:ToastController,
