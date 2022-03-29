@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">solution-challenge</string>
+    <string name="title_activity_main">solution-challenge</string>
+    <string name="package_name">com.solution.challenge</string>
+    <string name="custom_url_scheme">com.solution.challenge</string>
+</resources>

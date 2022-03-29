@@ -1,0 +1,6 @@
+{
+	"appId": "com.solution.challenge",
+	"appName": "solution-challenge",
+	"webDir": "dist/solution-challenge",
+	"bundledWebRuntime": false
+}
