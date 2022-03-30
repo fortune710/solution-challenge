@@ -56,3 +56,12 @@ ion-button{
 
     p { font-size: 16px;}
 }
+
+ion-button.outline{
+    --color: var(--primary-shade);
+    --background: transparent;
+    --box-shadow: 0;
+    --border-width: 1px;
+    --border-color: var(--primary-shade);
+    --border-style: solid;
+}
