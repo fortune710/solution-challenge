@@ -19,7 +19,7 @@ export class SignUpComponent implements OnInit {
 
   data:UserDetails = {
     displayName: this.displayName,
-    carbonBudgetForMonth: 0,
+    carbonBudgetForMonth: 372.5,
     carbonHistory: [{
       month: new Date().getMonth() + 1,
       year: new Date().getFullYear() + 1,
