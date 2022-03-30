@@ -39,7 +39,6 @@ ion-button.outline{
     --border-width: 1px;
     --border-color: var(--primary-shade);
     --border-style: solid;
-    
 }
 
 ion-item{
@@ -53,6 +52,7 @@ ion-list{
 
 .add-popover{
     --width: 90vw;
+    //display: flex;
     h1 { font-size: 20px; }
 }
 
