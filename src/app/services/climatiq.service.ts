@@ -12,12 +12,12 @@ export class ClimatiqService {
 
   constructor() { }
 
-  async getCarbonEstimateFromVehicle(distance:number, unit:'km'|'mi'|'nmi'|'m'|'ft'="km", passengers:number=1){
+  async getCarbonEstimateFromVehicle(distance:number, unit:'km'|'mi'|'nmi'|'m'|'ft'="km", passengers:number=1, vehicle:string, fuel_source:string, engine_size:string, vehicle_age:string, vehicle_weight:string){
     const options:HttpOptions = {
       url: this.url+'/estimate',
       headers: this.httpHeader,
       data: {
-        emission_factor:{},
+        emission_factor: `passenger_vehicle-vehicle_type_${vehicle}-fuel_source_${fuel_source}-engine_size_${engine_size}-vehicle_age_${vehicle_age}-vehicle_weight_${vehicle_weight}`,
         parameters: JSON.stringify({
           passengers: passengers,
           distance: distance,
@@ -29,11 +29,12 @@ export class ClimatiqService {
     await Http.post(options)
   }
 
-  async getCarbonEstimateFromFuel(volume:number, unit:'l'|'ml'|'m3'|'standard_cubic_foot'|'gallons_us'){
+  async getCarbonEstimateFromFuel(volume:number, unit:'l'|'ml'|'m3'|'standard_cubic_foot'|'gallons_us', vehicle:string, fuel_source:string, engine_size:string, vehicle_age:string, vehicle_weight:string){
     const options:HttpOptions = {
       url: this.url+'/estimate',
       headers: this.httpHeader,
       data: {
+        emission_factor: `passenger_vehicle-vehicle_type_${vehicle}-fuel_source_${fuel_source}-engine_size_${engine_size}-vehicle_age_${vehicle_age}-vehicle_weight_${vehicle_weight}`,
         parameters: JSON.stringify({
           volume: volume,
           volume_unit: unit
@@ -44,11 +45,12 @@ export class ClimatiqService {
     await Http.post(options)
   }
 
-  async getCarbonEstimateFromEnergyConsumption(energy:number, unit:'kWh'|'TJ'|'GJ'|'MMBTU'="kWh"){
+  async getCarbonEstimateFromEnergyConsumption(energy:number, unit:'kWh'|'TJ'|'GJ'|'MMBTU'="kWh", vehicle:string, fuel_source:string, engine_size:string, vehicle_age:string, vehicle_weight:string){
     const options:HttpOptions = {
       url: this.url+'/estimate',
       headers: this.httpHeader,
       data: {
+        emission_factor: `passenger_vehicle-vehicle_type_${vehicle}-fuel_source_${fuel_source}-engine_size_${engine_size}-vehicle_age_${vehicle_age}-vehicle_weight_${vehicle_weight}`,
         parameters: JSON.stringify({
           energy: energy,
           energy_unit: unit
