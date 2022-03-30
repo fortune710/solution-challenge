@@ -15,7 +15,10 @@ import { Firestore,
          updateDoc,
          doc,
          collection, 
-         getDocs} from '@angular/fire/firestore';
+         getDocs,
+         increment,
+         arrayUnion,
+         docData} from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage, uploadString } from '@angular/fire/storage';
 import { Photo } from '@capacitor/camera';
 import { FunctionalitiesService } from './functionalities.service';
@@ -28,6 +31,7 @@ export class FirebaseService {
   provider = new GoogleAuthProvider();
 
   user:User|any
+  userId: string | any;
 
   signUpWithEmail(password:string, email:string, gender:string, name:string){
     const user = createUserWithEmailAndPassword(this.auth, email, password)
@@ -92,12 +96,26 @@ export class FirebaseService {
 
   getUserDocument(collectionName:string, userId:string){
     const ref = doc(this.firestore, `${collectionName}/${userId}`);
-    return getDoc(ref)
+    return docData(ref)
   }
 
   createUserDocument(collectionName:string, userId:string|any, data:any){
     const ref = doc(this.firestore, `${collectionName}/${userId}`);
     return setDoc(ref, data);
+  }
+
+  updateUserCarbonAmount(collectionName:string, userId:string, amount:number){
+    const ref = doc(this.firestore, `${collectionName}/${userId}`)
+    return updateDoc(ref, {
+      "totalCarbonThisMonth.carbonAmount": increment(amount)
+    })
+  }
+
+  addNewMonthToCarbonHistory(collectionName:string, userId:string, data:any){
+    const ref = doc(this.firestore, `${collectionName}/${userId}`)
+    return updateDoc(ref, {
+      carbonHistory: arrayUnion(data)
+    })
   }
 
   async writeToFirebaseStorage(fileName: string, image:Photo|any){
@@ -107,7 +125,6 @@ export class FirebaseService {
       this.uiService.createToast("Could not upload file at this time.")
     })
   }
-
 
   async getURLFromStorage(fileName:string){
     const storageRef = ref(this.storage, `profile-pics/${fileName}.png`);
