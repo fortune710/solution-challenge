@@ -26,32 +26,61 @@
             <ion-item>
                 <ion-label position="floating">What vehicle did you use?</ion-label>
                 <ion-select>
-                    <ion-select-option>
+                    <ion-select-option value="car">
                         Car
                     </ion-select-option>
     
-                    <ion-select-option>
+                    <ion-select-option value="aircraft">
                         Airplane
                     </ion-select-option>
     
-                    <ion-select-option>
+                    <ion-select-option value="motorcycle">
                         Motorbike
                     </ion-select-option>
     
-                    <ion-select-option>
-                        Train
+                    <ion-select-option value="bicycle">
+                        Bicycle
+                    </ion-select-option>
+
+                    <ion-select-option value="coach">
+                        Coach
                     </ion-select-option>
                 </ion-select>
             </ion-item>
 
             <ion-item>
                 <ion-label position="floating">How many kilometers did you travel?</ion-label>
-                <ion-input type="number"></ion-input>
+                <ion-input type="number" (ionChange)="getDistance($event)"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="floating">Unit of Distance</ion-label>
+                <ion-select (ionChange)="getDistanceUnit($event)">
+                    <ion-select-option value="km">
+                        Kilometers
+                    </ion-select-option>
+    
+                    <ion-select-option value="mi">
+                        Miles
+                    </ion-select-option>
+    
+                    <ion-select-option value="nmi">
+                        Nautical Mile
+                    </ion-select-option>
+    
+                    <ion-select-option value="m">
+                        Metres
+                    </ion-select-option>
+
+                    <ion-select-option value="ft">
+                        Feet
+                    </ion-select-option>
+                </ion-select>
             </ion-item>
 
             <ion-item>
                 <ion-label position="floating">How many passengers travelled?</ion-label>
-                <ion-input type="number"></ion-input>
+                <ion-input type="number" (ionChange)="getPassengers($event)"></ion-input>
             </ion-item>
         </div>
 
@@ -59,12 +88,12 @@
         <div *ngIf="emissionType == 'electricity' ">
             <ion-item>
                 <ion-label position="floating">Amount of Electricity Used</ion-label>
-                <ion-input type="number"></ion-input>
+                <ion-input type="number" (ionChange)="getEnergy($event)"></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label position="floating">Unit of Power Consumption</ion-label>
-                <ion-select>
+                <ion-select (ionChange)="getEnergyUnit($event)">
                     <ion-select-option value="kWh">kWh</ion-select-option>
                     <ion-select-option value="TJ">TJ</ion-select-option>
                     <ion-select-option value="GJ">GJ</ion-select-option>
@@ -77,23 +106,29 @@
         <div *ngIf="emissionType == 'fuel' ">
             <ion-item>
                 <ion-label position="floating">Amount of Fuel Burnt</ion-label>
-                <ion-input type="number"></ion-input>
+                <ion-input type="number" (ionChange)="getVolume($event)"></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label position="floating">Unit of Volume</ion-label>
-                <ion-select>
-                    <ion-select-option value="ml">ml</ion-select-option>
-                    <ion-select-option value="l">l</ion-select-option>
-                    <ion-select-option value="m3"> m <sub>3</sub> </ion-select-option>
+                <ion-select (ionChange)="getVolumeUnit($event)">
+                    <ion-select-option value="ml">Millilitres(ml)</ion-select-option>
+                    <ion-select-option value="l">Litres(l)</ion-select-option>
+                    <ion-select-option value="m3">Cubic Metres (m <sub>3</sub>) </ion-select-option>
                     <ion-select-option value="standard_cubic_foot">Standard Cubic Foot</ion-select-option>
                     <ion-select-option value="gallons_us">Gallons(US)</ion-select-option>
                 </ion-select> 
             </ion-item>
         </div>
 
-
-
     </ion-list>
+
+    <p *ngIf="carbonEmitted !== undefined">
+        You emitted {{ carbonEmitted }} kg CO2
+    </p>
+    
+    <ion-button (click)="getCarbonDataAndSubmit(emissionType)">
+        Calculate
+    </ion-button>
     
 </ion-content>
