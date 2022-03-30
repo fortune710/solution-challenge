@@ -26,9 +26,10 @@ export class LoginComponent implements OnInit {
   logIn(){
     console.log(this.logInForm.value)
     
-    this.firebaseService.signInWithEmail(this.logInForm.value.password, this.logInForm.value.email)
+    this.firebaseService.signInWithEmail(this.logInForm.value.email, this.logInForm.value.password)
     .then((details)=>{
-      this.firebaseService.getUserDocument('users',details?.uid)
+      this.firebaseService.userId = details?.uid
+      this.firebaseService.getUserDocument('users',details?.uid).subscribe((data)=>console.log(data))
     })
     .then(()=>{
       this.router.navigate(['/home'])
@@ -53,7 +54,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.logInForm = this.formBuilder.group({
-      displayName: [''],
       email: [''],
       password: [''],
     })
