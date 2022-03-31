@@ -50,7 +50,7 @@ export class ClimatiqService {
       url: this.url+'/estimate',
       headers: this.httpHeader,
       data: {
-        emission_factor: `electricity-energy_source_grid_mix`,
+        emission_factor: "electricity-energy_source_grid_mix",
         parameters:{
           energy: energy,
           energy_unit: unit

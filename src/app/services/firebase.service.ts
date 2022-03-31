@@ -8,7 +8,8 @@ import { Auth,
          signInWithEmailAndPassword, 
          createUserWithEmailAndPassword, 
          signInWithPopup,
-         GoogleAuthProvider } from '@angular/fire/auth';
+         GoogleAuthProvider, 
+         signOut} from '@angular/fire/auth';
 import { Firestore,
          getDoc,
          setDoc,
@@ -32,6 +33,7 @@ export class FirebaseService {
 
   user:User|any
   userId: string | any;
+  imageURL: string | any;
 
   signUpWithEmail(password:string, email:string, gender:string, name:string){
     const user = createUserWithEmailAndPassword(this.auth, email, password)
@@ -59,10 +61,16 @@ export class FirebaseService {
   }
 
   signInWithGoogle(){
-    signInWithPopup(this.auth, this.provider)
+    const user = signInWithPopup(this.auth, this.provider)
     .then((details)=>{
-      console.log(details.user)
+      return details.user;
     })
+    return user
+  }
+
+  signOut(){
+    const user = signOut(this.auth)
+    return user
   }
 
   setProfilePicture(currentUser:User, newUrl:string){
@@ -110,6 +118,14 @@ export class FirebaseService {
       "totalCarbonThisMonth.carbonAmount": increment(amount)
     })
   }
+
+  updateUserCarbonBudget(collectionName:string, userId:string, amount:number){
+    const ref = doc(this.firestore, `${collectionName}/${userId}`)
+    return updateDoc(ref, {
+      carbonBudgetForMonth: amount
+    })
+  }
+
 
   addNewMonthToCarbonHistory(collectionName:string, userId:string, data:any){
     const ref = doc(this.firestore, `${collectionName}/${userId}`)

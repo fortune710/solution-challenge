@@ -46,7 +46,6 @@ export class FunctionalitiesService {
       timeout: 20000
     }
     const coordinates = await Geolocation.getCurrentPosition(options)
-    console.log(coordinates)
     return coordinates
   }
 
