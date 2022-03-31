@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClimatiqService } from 'src/app/services/climatiq.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { FunctionalitiesService } from 'src/app/services/functionalities.service';
 
 @Component({
   selector: 'app-popover',
@@ -19,7 +20,7 @@ export class PopoverComponent implements OnInit {
 
 
   getDistance(event:any){
-    this.distance = event.target.value
+    this.distance = parseFloat(event.target.value)
   }
 
   getDistanceUnit(event:any){
@@ -36,7 +37,7 @@ export class PopoverComponent implements OnInit {
   volumeUnit:string | any;
 
   getVolume(event:any){
-    this.volume = event.target.value
+    this.volume = parseFloat(event.target.value)
   }
 
   getVolumeUnit(event:any){
@@ -49,7 +50,7 @@ export class PopoverComponent implements OnInit {
 
 
   getEnergy(event:any){
-    this.energy = event.target.value
+    this.energy = parseFloat(event.target.value)
   }
 
   getEnergyUnit(event:any){
@@ -68,15 +69,23 @@ export class PopoverComponent implements OnInit {
         this.climatiq.getCarbonEstimateFromVehicle(this.distance, this.distanceUnit, this.passengers, this.vehicle)
         .then((result)=>{
           this.carbonEmitted = result.data.co2e
-          this.firebase.updateUserCarbonAmount('users',this.firebase.userId,parseFloat(this.carbonEmitted.toFixed(3)))
+          this.firebase.updateUserCarbonAmount('users',this.firebase.userId, this.carbonEmitted)
+        })
+        .catch(()=>{
+          this.uiService.createToast("Could not calculate your carbon emission")
         })
         break;
 
       case 'electricity':
+        console.log(this.energy+1)
         this.climatiq.getCarbonEstimateFromEnergyConsumption(this.energy, this.energyUnit)
         .then((result)=>{
           this.carbonEmitted = result.data.co2e
-          this.firebase.updateUserCarbonAmount('users',this.firebase.userId,parseFloat(this.carbonEmitted.toFixed(3)))
+          console.log(this.carbonEmitted)
+          this.firebase.updateUserCarbonAmount('users',this.firebase.userId, this.carbonEmitted)
+        })
+        .catch(()=>{
+          this.uiService.createToast("Could not calculate your carbon emission")
         })
         break;
 
@@ -84,14 +93,24 @@ export class PopoverComponent implements OnInit {
         this.climatiq.getCarbonEstimateFromFuel(this.volume, this.volumeUnit)
         .then((result)=>{
           this.carbonEmitted = result.data.co2e
-          this.firebase.updateUserCarbonAmount('users',this.firebase.userId,parseFloat(this.carbonEmitted.toFixed(3)))
+          this.firebase.updateUserCarbonAmount('users',this.firebase.userId,this.carbonEmitted)
+        })
+        .catch(()=>{
+          this.uiService.createToast("Could not calculate your carbon emission")
         })
         break;
-      }
+
+      default:
+        console.log("okay")
+        break;
+    }
+      
   }
 
 
-  constructor(private climatiq:ClimatiqService, private firebase:FirebaseService) { }
+  constructor(private climatiq:ClimatiqService, 
+              private firebase:FirebaseService,
+              private uiService:FunctionalitiesService) { }
 
   ngOnInit(): void {
   }
