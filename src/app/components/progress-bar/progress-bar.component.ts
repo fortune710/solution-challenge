@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CarbonAmountForUser, UserDetails } from 'src/app/interfaces/schema';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'progress-bar',
@@ -8,45 +8,9 @@ import { CarbonAmountForUser, UserDetails } from 'src/app/interfaces/schema';
 })
 export class ProgressBarComponent implements OnInit {
 
-  data: UserDetails = {
-    displayName: 'Fortune Alebiosu',
-    totalCarbonThisMonth: {
-      month: 2,
-      year: 2022,
-      carbonAmount: 250
-    },
-    carbonBudgetForMonth: 625,
-    carbonHistory:[
-      {
-        month: 2,
-        year: 2022,
-        carbonAmount: 250
-      },
-      {
-        month: 1,
-        year: 2022,
-        carbonAmount: 350
-      },
-      {
-        month: 12,
-        year: 2021,
-        carbonAmount: 324
-      },
-      {
-        month: 11,
-        year: 2021,
-        carbonAmount: 340
-      },
-      {
-        month: 10,
-        year: 2021,
-        carbonAmount: 297
-      },
-    ]
-  };
-  percent:number = (this.data.totalCarbonThisMonth.carbonAmount/this.data.carbonBudgetForMonth)*100;
+  @Input('percent') percent:number = 0;
   
-  constructor() { }
+  constructor(private firebase:FirebaseService) { }
   
   ngOnInit(): void {
   }
