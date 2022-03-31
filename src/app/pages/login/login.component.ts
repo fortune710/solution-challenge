@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.firebaseService.signInWithEmail(this.logInForm.value.email, this.logInForm.value.password)
     .then((details)=>{
       this.firebaseService.userId = details?.uid
+      this.firebaseService.imageURL = details.photoURL
       this.firebaseService.getUserDocument('users',details?.uid).subscribe((data)=>console.log(data))
     })
     .then(()=>{
@@ -45,6 +46,17 @@ export class LoginComponent implements OnInit {
           break;
       }
     })
+  }
+
+  signInWithGoogle(){
+    this.firebaseService.signInWithGoogle()
+    .then((result) => {
+      this.firebaseService.userId = result.uid
+      this.firebaseService.imageURL = result.photoURL
+
+    })
+    .then(() => this.router.navigate(['/home']))
+    .catch(() => this.uiService.createToast("Could not login via Google😢"))
   }
 
   constructor(private firebaseService: FirebaseService,
