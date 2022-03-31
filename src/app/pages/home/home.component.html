@@ -1,16 +1,43 @@
 <ion-content>
+    <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="300" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="chevron-down-circle-outline"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+      </ion-refresher-content>    </ion-refresher>
+
     <section class="greeting">
         <div>
-            <h1>Hello, {{ data.displayName }}</h1>
+            <h1>Hello, {{ data?.displayName }}</h1>
             <p>{{ message }}</p>
         </div>
-        <ion-avatar>
-            <ion-img src="https://avatars.dicebear.com/api/big-ears/FortuneAlebiosu.svg"></ion-img>
+        <ion-avatar id="avatar">
+            <ion-img [src]="firebaseService.imageURL"></ion-img>
         </ion-avatar>
+        <ion-popover trigger="avatar" side="top">
+            <ng-template>
+                <ion-item>
+                    <ion-label position="floating">Edit Carbon Budget</ion-label>
+                    <ion-input 
+                        [value]="data.carbonBudgetForMonth"
+                        type="number" 
+                        placeholder="Enter your new budget"
+                        (ionChange)="getNewBudget($event)"
+                        (ionPopoverDidDismiss)="firebaseService.updateUserCarbonBudget('users',this.firebaseService.userId, this.newBudget)">
+                    </ion-input>
+                </ion-item>
+                <ion-item (click)="signOut()">
+                    <ion-label id="signout">
+                        Sign Out
+                    </ion-label>
+                </ion-item>
+            </ng-template>
+        </ion-popover>
     </section>
 
     <section class="flex-middle-vertical">
-        <progress-bar></progress-bar>
+        <progress-bar [percent]="percentUsed"></progress-bar>
         
         <div class="flex-middle info-bar">
             <span class="flex-middle-vertical">
@@ -18,7 +45,7 @@
                 <p>From last month</p>
             </span>
             <span class="flex-middle-vertical">
-                <h1>{{ budgetRemaining }}kg</h1>
+                <h1>{{ budgetRemaining | number: '2.1-1' }}kg</h1>
                 <p>Remaining budget</p>
             </span>
         </div>
@@ -31,7 +58,7 @@
 
         <ion-button class="outline" (click)="getCoordinates()">
             <ion-icon slot="start" name="car-sport"></ion-icon>
-            Track Journey
+            {{ buttonText }}
         </ion-button>
     </section>
 

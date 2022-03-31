@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { User } from "@angular/fire/auth";
-import { PopoverController } from '@ionic/angular'
+import { LoadingController, PopoverController } from '@ionic/angular'
 import { UserDetails, Coordinates } from '../../interfaces/schema'
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 import { FunctionalitiesService } from 'src/app/services/functionalities.service';
 import { ClimatiqService } from 'src/app/services/climatiq.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,53 +15,23 @@ import { ClimatiqService } from 'src/app/services/climatiq.service';
 })
 export class HomeComponent implements OnInit {
   message: string | any = "Your emission is doing well 🎉";
-  data: UserDetails | any = {
-    displayName: 'Fortune Alebiosu',
-    totalCarbonThisMonth: {
-      month: 2,
-      year: 2022,
-      carbonAmount: 250
-    },
-    carbonBudgetForMonth: 625,
-    carbonHistory:[
-      {
-        month: 2,
-        year: 2022,
-        carbonAmount: 250
-      },
-      {
-        month: 1,
-        year: 2022,
-        carbonAmount: 350
-      },
-      {
-        month: 12,
-        year: 2021,
-        carbonAmount: 324
-      },
-      {
-        month: 11,
-        year: 2021,
-        carbonAmount: 340
-      },
-      {
-        month: 10,
-        year: 2021,
-        carbonAmount: 297
-      },
-    ]
-  };
+  percentUsed: number = 0
+  
+  data: UserDetails | any;
 
-  percentage: number | string | any;
-  budgetRemaining: number = this.data.carbonBudgetForMonth - this.data.totalCarbonThisMonth.carbonAmount
+  percentage: number | any = 0;
+  budgetRemaining: number | any;
   userId:string|any;
-  userLocationStack:Array<Coordinates> | undefined;
+  userLocationStack:Array<Coordinates> = [] ;
+
+  buttonText: string | any = 'Track your Journey';
+  clicked = false;
   
 
   getPercentage(prev:number|undefined, curr:number){
     let percentage:number | string | undefined;
     if(prev === undefined){
-      percentage = 'N/A'
+      percentage = 0
     } else {
       percentage = ((curr-prev)/prev)*100
     }
@@ -105,32 +76,83 @@ export class HomeComponent implements OnInit {
       }
       this.userLocationStack?.push(point)
     })
-    if(this.userLocationStack?.length == 2){
-      const lat1 = this.userLocationStack[0].latitude;
-      const lon1 = this.userLocationStack[0].longitude
-      const lat2 = this.userLocationStack[1].latitude;
-      const lon2 = this.userLocationStack[1].longitude
-
-      const distance = this.getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
-      this.appService.createToast(`You travelled ${distance} kilometers`)
-    }
+    console.log(this.userLocationStack)
+    this.clicked = !this.clicked
+    if(this.clicked){
+      this.buttonText = 'Tracking in Progress...';
+      this.appService.createToast("Journey Tracking in progress...")
+    } else {
+      this.buttonText = 'Track your Journey';
+    } 
   }
 
-  constructor(private firebaseService: FirebaseService,
-              private climatiq:ClimatiqService,
+  doRefresh(event:any){
+    //Get documents from firestore
+    const id = this.firebaseService.userId
+    this.firebaseService.getUserDocument('users', id)
+    .subscribe(async(res)=>{
+      this.data = res;
+      this.budgetRemaining = this.data.carbonBudgetForMonth - this.data.totalCarbonThisMonth.carbonAmount
+      this.percentage = this.getPercentage(this.data.carbonHistory?.pop()?.carbonAmount,this.data.totalCarbonThisMonth.carbonAmount)
+      
+      const carbonThisMonth = res.totalCarbonThisMonth.carbonAmount
+      const budget = res.carbonBudgetForMonth
+      this.percentUsed = (carbonThisMonth/budget)*100
+      
+      
+      //Dismiss the refresher
+      event.target.complete()
+    })
+
+  }
+
+  async firebaseLoading(){
+    const loading = await this.loadingController.create({
+      message: 'Getting your footprint...',
+      cssClass: 'firebase-loading'
+    })
+    await loading.present()
+
+    //Get documents from firestore
+    const id = this.firebaseService.userId
+    this.firebaseService.getUserDocument('users', id)
+    .subscribe(async(res)=>{
+      this.data = res;
+      this.budgetRemaining = this.data.carbonBudgetForMonth - this.data.totalCarbonThisMonth.carbonAmount
+      this.percentage = this.getPercentage(this.data.carbonHistory?.pop()?.carbonAmount,this.data.totalCarbonThisMonth.carbonAmount)
+      
+      const carbonThisMonth = res.totalCarbonThisMonth.carbonAmount
+      const budget = res.carbonBudgetForMonth
+      this.percentUsed = (carbonThisMonth/budget)*100
+      
+      
+      //Dismiss the loader
+      await loading.dismiss()
+    })
+    
+
+  }
+
+  newBudget: number = 0
+  getNewBudget(event:any){
+    this.newBudget = parseFloat(event.target.value);
+  }
+
+  signOut(){
+    this.firebaseService.signOut().then(() => this.router.navigate(['/login']))
+  }
+
+  constructor(public firebaseService: FirebaseService,
               private popoverController:PopoverController,
-              private appService:FunctionalitiesService) { 
+              private appService:FunctionalitiesService,
+              private loadingController:LoadingController,
+              private router:Router) { 
       //console.log(this.data)
+  
               }
 
   ngOnInit(): void {
-    this.userId = this.firebaseService.userId
-    this.firebaseService.getUserDocument('users', this.userId)
-    .subscribe((response)=>{
-      console.log(response)
-      this.data = response;
-    })
-   this.percentage = this.getPercentage(this.data.carbonHistory?.pop()?.carbonAmount,this.data.totalCarbonThisMonth.carbonAmount)
+    this.firebaseLoading()
   }
 
 }
