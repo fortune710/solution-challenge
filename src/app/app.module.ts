@@ -24,6 +24,7 @@ import { VerticalPanDirective } from './directives/vertical-pan.directive';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,12 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       outerStrokeColor: "#66fcf1",
       innerStrokeColor: "#c5c6c7",
       animationDuration: 300,
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
     })
   ],
   providers: [
