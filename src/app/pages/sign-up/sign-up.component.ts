@@ -39,7 +39,6 @@ export class SignUpComponent implements OnInit {
   }
   
   signUp(){
-    
     this.firebaseService.signUpWithEmail(this.signUpForm.value.password, this.signUpForm.value.email, this.gender, this.signUpForm.value.displayName)
     .then((details)=>{
       this.data.displayName = this.signUpForm.value.displayName
@@ -68,6 +67,13 @@ export class SignUpComponent implements OnInit {
           break;
       }
     })
+  }
+
+  signUpWithGoogle(){
+    this.firebaseService.signInWithGoogle()
+    .then((result) => this.firebaseService.createUserDocument('users', result.uid, this.data))
+    .then(() => this.router.navigate(['/home']))
+    .catch(() => this.uiService.createToast("Could not sign up using Google😢"))
   }
   
   constructor(private firebaseService: FirebaseService,
